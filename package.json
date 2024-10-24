@@ -1,0 +1,14 @@
+{
+  "name": "builder-lsp",
+  "version": "0.0.0",
+  "description": "lsp built for builder approach in typescipt",
+  "main": "server.ts",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Charlie",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.7.9"
+  }
+}
