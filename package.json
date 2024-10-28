@@ -3,12 +3,15 @@
   "version": "0.0.0",
   "description": "lsp built for builder approach in typescipt",
   "main": "server.ts",
+  "type": "module",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "build": "tsc"
   },
   "author": "Charlie",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^22.7.9"
+    "@types/node": "^22.7.9",
+    "typescript": "^5.6.3"
   }
 }
