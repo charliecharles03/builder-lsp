@@ -4,6 +4,6 @@ interface Message {
 export interface RequestMessage extends Message {
     id: number | string;
     method: string;
-    params?: unknown[] | object[];
+    params?: object[];
 }
 export {};

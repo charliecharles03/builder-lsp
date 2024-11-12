@@ -13,6 +13,6 @@ interface CompletionList {
 export const completion = (message : RequestMessage) : CompletionList => {
     return {
         isIncomplete: false,
-        items: [{label: "TypeScripts"},{label:"LSP"},{label: "Lala"}]
+        items: [{label: "TypeScripts"},{label:"LSP"},{label: "unLala"}]
     }
 }

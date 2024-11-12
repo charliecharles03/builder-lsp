@@ -4,7 +4,7 @@ exports.completion = void 0;
 const completion = (message) => {
     return {
         isIncomplete: false,
-        items: [{ label: "TypeScripts" }, { label: "LSP" }, { label: "Lala" }]
+        items: [{ label: "TypeScripts" }, { label: "LSP" }, { label: "unLala" }]
     };
 };
 exports.completion = completion;
