@@ -1,28 +1,33 @@
 import log from "./log"
 import { initialize } from "./methods/initialize";
 import { completion } from "./methods/textDocument/completion";
-import { hover } from "./methods/textDocument/hover";
+import { didChange } from "./methods/textDocument/didChange";
+
 
 interface Message {
     jsonrpc: string;
 }
 
-export interface RequestMessage extends Message{
-    id : number | string;
+export interface NotificationMessage extends Message {
     method: string;
-    params?: object [];
+    params?: unknown[] | object;
 }
 
+export interface RequestMessage extends NotificationMessage{
+    id : number | string;
+}
 
-type RequestMethod = (message : RequestMessage) => unknown
+type RequestMethod = (message : RequestMessage) => ReturnType<typeof initialize> | ReturnType<typeof completion>;
 
-const methodLookup : Record<string, RequestMethod> = {
+type NotificationMethod = (message: NotificationMessage) => void;
+
+const methodLookup : Record<string, RequestMethod | NotificationMethod> = {
     initialize,
     "textDocument/completion": completion,
-    "textDocument/hover": hover,
+    "textDocument/didChange": didChange,
 };
 
-const respond = (id : RequestMessage['id'], result : unknown) =>{
+const respond = (id : RequestMessage['id'], result : object | null) =>{
     log.write("respond being triggered");
     const message = JSON.stringify({id,result});
     const messageLength = Buffer.byteLength(message,"utf8");
@@ -50,10 +55,12 @@ process.stdin.on ('data',(chunk)=>{
 
         const method = methodLookup[message.method] ;
         if(method){
-            log.write(`method that is being requestion ${method}`);
-            respond(message.id,method(message));
+            const result = method(message);
+            if(result != undefined){
+                respond(message.id,result);
+            }
         }
-        
+
         buffer = buffer.slice(messageStart+contentLength);
     }
 })

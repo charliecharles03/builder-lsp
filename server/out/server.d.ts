@@ -1,9 +1,11 @@
 interface Message {
     jsonrpc: string;
 }
-export interface RequestMessage extends Message {
-    id: number | string;
+export interface NotificationMessage extends Message {
     method: string;
-    params?: object[];
+    params?: unknown[] | object;
+}
+export interface RequestMessage extends NotificationMessage {
+    id: number | string;
 }
 export {};

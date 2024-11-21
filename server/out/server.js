@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const log_1 = require("./log");
 const initialize_1 = require("./methods/initialize");
 const completion_1 = require("./methods/textDocument/completion");
-const hover_1 = require("./methods/textDocument/hover");
+const didChange_1 = require("./methods/textDocument/didChange");
 const methodLookup = {
     initialize: initialize_1.initialize,
     "textDocument/completion": completion_1.completion,
-    "textDocument/hover": hover_1.hover,
+    "textDocument/didChange": didChange_1.didChange,
 };
 const respond = (id, result) => {
     log_1.default.write("respond being triggered");
@@ -34,8 +34,10 @@ process.stdin.on('data', (chunk) => {
         log_1.default.write({ id: message.id, method: message.method });
         const method = methodLookup[message.method];
         if (method) {
-            log_1.default.write(`method that is being requestion ${method}`);
-            respond(message.id, method(message));
+            const result = method(message);
+            if (result != undefined) {
+                respond(message.id, result);
+            }
         }
         buffer = buffer.slice(messageStart + contentLength);
     }

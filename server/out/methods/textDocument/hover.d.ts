@@ -23,12 +23,5 @@ interface Range {
     start: Position;
     end: Position;
 }
-type Hover = {
-    contents: {
-        kind: "markdown";
-        value: string;
-    };
-    range: Range;
-};
-export declare const hover: (message: RequestMessage) => Hover | null;
+export declare const hover: (message: RequestMessage) => void;
 export {};
