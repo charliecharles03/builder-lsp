@@ -1,4 +1,6 @@
 import { RequestMessage } from "../server";
+
+//server capabilities are unknown as of now will try to list them out later
 type ServerCapabilities  = Record<string,unknown>;
 
 interface InitializeResult{
@@ -12,7 +14,7 @@ interface InitializeResult{
 
 export const initialize = (message : RequestMessage) : InitializeResult => {
     return {
-        capabilities:{completionProvider:{}},
+        capabilities:{completionProvider:{}, textDocumentSync: 1},
         serverInfo:{
             name: "lsp-from-scratch",
             version: "0.0.1",
