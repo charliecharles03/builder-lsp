@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.didChange = void 0;
-const log_1 = require("../../log");
+const documents_1 = require("./documents");
 const didChange = (message) => {
-    log_1.default.write("message in notificaiton ");
-    log_1.default.write(message);
+    const parms = message.params;
+    documents_1.documents.set(parms.textDocument.uri, parms.contentChanges[0].text);
 };
 exports.didChange = didChange;
 //# sourceMappingURL=didChange.js.map
